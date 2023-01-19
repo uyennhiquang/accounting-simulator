@@ -7,11 +7,30 @@
 
 body {
     background-color: #2D2D2D;
+
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
-    text-align: center;
-    margin-top: 4rem;
-
     font-size: 2.5rem;
+}
+
+.create-journal {
+    background-color: #2D2D2D;
+    border: 5px dashed pink;
+    text-align: center;
+    font-size: 2rem;
+    max-width: 95%;
+    width: 30rem;
+    padding: 1rem 0;
+    cursor: pointer;
+
+    margin-top: 2rem;
+}
+
+.create-journal:hover {
+    opacity: 0.5;
 }
