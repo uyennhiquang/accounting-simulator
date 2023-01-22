@@ -53,3 +53,11 @@ caption {
 .hidden {
     display: none;
 }
+
+#add-entry-click {
+    color: #75D15E;
+}
+
+#add-entry-click:hover {
+    opacity: 0.8;
+}

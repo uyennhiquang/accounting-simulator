@@ -32,6 +32,7 @@ createJournalBtn.addEventListener("click", function () {
   const textAddEntry = document.createTextNode("Add new entry");
   clickableAddEntry.href = "#";
   clickableAddEntry.setAttribute("onclick", "newEntry(); return false;");
+  clickableAddEntry.setAttribute("id", "add-entry-click");
   clickableAddEntry.appendChild(textAddEntry);
 
   const cellAddEntry = document.createElement("td");
