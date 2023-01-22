@@ -8,7 +8,7 @@ const journalHeaderText = [
   "CREDIT",
 ];
 createJournalBtn.addEventListener("click", function () {
-  createJournalBtn.classList.add("hidden");
+  // createJournalBtn.classList.add("hidden");
 
   // Generate table objects
   const table = document.createElement("table");
@@ -35,7 +35,8 @@ createJournalBtn.addEventListener("click", function () {
   }
   tableHeader.appendChild(row);
   table.appendChild(tableHeader);
-  document.body.appendChild(table);
+  // document.body.appendChild(table);
 
+  document.body.insertBefore(table, createJournalBtn);
   table.setAttribute("border", "1");
 });
