@@ -14,14 +14,29 @@ createJournalBtn.addEventListener("click", function () {
   const table = document.createElement("table");
   const tableHeader = document.createElement("thead");
 
+  // Generate caption
   const tableCaption = document.createElement("caption");
   const tableCaptionText = document.createTextNode("General Journal");
 
   tableCaption.appendChild(tableCaptionText);
   table.appendChild(tableCaption);
 
-  // Generate 1 row to insert cells into
-  const row = document.createElement("tr");
+  // Generate header row to insert cells into
+  const rowHeader = document.createElement("tr");
+
+  // Generate "Add Entry" row
+  const rowAddEntry = document.createElement("tr");
+
+  // Generate an <a> tag to make text clickable and executable, then create a text node to wrap inside <a> tags
+  const clickableAddEntry = document.createElement("a");
+  const textAddEntry = document.createTextNode("Add new entry");
+  clickableAddEntry.href = "#";
+  clickableAddEntry.setAttribute("onclick", "newEntry(); return false;");
+  clickableAddEntry.appendChild(textAddEntry);
+
+  const cellAddEntry = document.createElement("td");
+  cellAddEntry.appendChild(clickableAddEntry);
+  rowAddEntry.appendChild(cellAddEntry);
 
   // Generate i cells
   for (let i = 0; i < journalHeaderText.length; i++) {
@@ -29,12 +44,13 @@ createJournalBtn.addEventListener("click", function () {
     const cell = document.createElement("td");
     const cellText = document.createTextNode(journalHeaderText[i]);
 
-    // Lastly, the cell text is put within the cell tags (td) and the cell is put ithin the row (tr)
+    // Lastly, the cell text is put within the cell tags (td) and the cell is put within the row (tr)
     cell.appendChild(cellText);
-    row.appendChild(cell);
+    rowHeader.appendChild(cell);
   }
-  tableHeader.appendChild(row);
+  tableHeader.appendChild(rowHeader);
   table.appendChild(tableHeader);
+  table.appendChild(rowAddEntry);
   // document.body.appendChild(table);
 
   document.body.insertBefore(table, createJournalBtn);
