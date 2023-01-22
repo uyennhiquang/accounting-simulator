@@ -14,6 +14,12 @@ createJournalBtn.addEventListener("click", function () {
   const table = document.createElement("table");
   const tableHeader = document.createElement("thead");
 
+  const tableCaption = document.createElement("caption");
+  const tableCaptionText = document.createTextNode("General Journal");
+
+  tableCaption.appendChild(tableCaptionText);
+  table.appendChild(tableCaption);
+
   // Generate 1 row to insert cells into
   const row = document.createElement("tr");
 
