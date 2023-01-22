@@ -16,6 +16,8 @@ body {
 
 .title {
     font-size: 2.5rem;
+
+    margin-bottom: 2rem;
 }
 
 .create-journal {
@@ -27,10 +29,12 @@ body {
     width: 30rem;
     padding: 1rem 0;
     cursor: pointer;
-
-    margin-top: 2rem;
 }
 
 .create-journal:hover {
     opacity: 0.5;
+}
+
+.hidden {
+    display: none;
 }
