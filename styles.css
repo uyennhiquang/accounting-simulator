@@ -14,12 +14,23 @@ body {
     align-items: center;
 }
 
+/* Table styling */
+table,
+th,
+td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
 table {
     margin-bottom: 2rem;
 }
 
 td {
     font-size: 20px;
+}
+
+thead td {
     padding: 10px 30px;
 }
 
@@ -28,6 +39,9 @@ caption {
     font-weight: 100;
     margin-bottom: 0.5rem;
 }
+
+/* END Table styling */
+
 
 .title {
     font-size: 2.5rem;
@@ -60,4 +74,9 @@ caption {
 
 #add-entry-click:hover {
     opacity: 0.8;
+}
+
+#add-entry-cell {
+    text-align: center;
+    padding: 10px 0;
 }

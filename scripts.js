@@ -38,6 +38,8 @@ createJournalBtn.addEventListener("click", function () {
   const cellAddEntry = document.createElement("td");
   cellAddEntry.appendChild(clickableAddEntry);
   rowAddEntry.appendChild(cellAddEntry);
+  cellAddEntry.setAttribute("colspan", journalHeaderText.length);
+  cellAddEntry.setAttribute("id", "add-entry-cell");
 
   // Generate i cells
   for (let i = 0; i < journalHeaderText.length; i++) {
@@ -55,5 +57,5 @@ createJournalBtn.addEventListener("click", function () {
   // document.body.appendChild(table);
 
   document.body.insertBefore(table, createJournalBtn);
-  table.setAttribute("border", "1");
+  // table.setAttribute("border", "1");
 });
