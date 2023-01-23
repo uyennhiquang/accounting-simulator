@@ -12,7 +12,6 @@ createJournalBtn.addEventListener("click", function () {
 
   // Generate table objects
   const table = document.createElement("table");
-  const tableHeader = document.createElement("thead");
 
   // Generate caption
   const tableCaption = document.createElement("caption");
@@ -20,9 +19,6 @@ createJournalBtn.addEventListener("click", function () {
 
   tableCaption.appendChild(tableCaptionText);
   table.appendChild(tableCaption);
-
-  // Generate header row to insert cells into
-  const rowHeader = document.createElement("tr");
 
   // Generate "Add Entry" row
   const rowAddEntry = document.createElement("tr");
@@ -40,6 +36,10 @@ createJournalBtn.addEventListener("click", function () {
   rowAddEntry.appendChild(cellAddEntry);
   cellAddEntry.setAttribute("colspan", journalHeaderText.length);
   cellAddEntry.setAttribute("id", "add-entry-cell");
+
+  // Generate header elements and row to insert cells into
+  const tableHeader = document.createElement("thead");
+  const rowHeader = document.createElement("tr");
 
   // Generate header cells
   for (const headerText of journalHeaderText) {
