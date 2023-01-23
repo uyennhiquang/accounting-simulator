@@ -41,11 +41,11 @@ createJournalBtn.addEventListener("click", function () {
   cellAddEntry.setAttribute("colspan", journalHeaderText.length);
   cellAddEntry.setAttribute("id", "add-entry-cell");
 
-  // Generate i cells
-  for (let i = 0; i < journalHeaderText.length; i++) {
+  // Generate header cells
+  for (const headerText of journalHeaderText) {
     // Within each iteration, a cell is generated, then the cell text
     const cell = document.createElement("td");
-    const cellText = document.createTextNode(journalHeaderText[i]);
+    const cellText = document.createTextNode(headerText);
 
     // Lastly, the cell text is put within the cell tags (td) and the cell is put within the row (tr)
     cell.appendChild(cellText);
