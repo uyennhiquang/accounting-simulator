@@ -1,6 +1,9 @@
 "use strict";
 
+// --- BUG: The current functions of generating new entry and journal use the same table ---
+
 const createJournalBtn = document.querySelector(".create-journal");
+
 const journalHeaderText = [
   "DATE",
   "ACCOUNT NAME",
@@ -10,8 +13,9 @@ const journalHeaderText = [
   "CREDIT",
 ];
 
-// Generate table objects
-const table = document.createElement("table");
+// Each time a new journal is created: the table count increments; a new table variable is pushed into the table list
+const tableLists = [];
+let tableCount = 0;
 
 // Function that generates a row taking an array and boolean value as inputs. It will return a row of cell of the given length and can include or not include the name of the elements inside the array.
 const generateJournalSectionRow = function (array, iteration, textInclude) {
@@ -22,6 +26,7 @@ const generateJournalSectionRow = function (array, iteration, textInclude) {
     const cellText = textInclude
       ? document.createTextNode(array[i])
       : document.createTextNode("Pizza");
+
     // Lastly, the cell text is put within the cell tags (td) and the cell is put within the row (tr)
     cell.appendChild(cellText);
     row.appendChild(cell);
@@ -46,14 +51,16 @@ const createNewEntry = function () {
 };
 
 createJournalBtn.addEventListener("click", function () {
-  // createJournalBtn.classList.add("hidden");
+  tableCount++;
+  tableLists.push(`table--${tableCount}`);
+  tableLists[tableCount - 1] = document.createElement("table");
 
   // Generate caption
   const tableCaption = document.createElement("caption");
   const tableCaptionText = document.createTextNode("General Journal");
 
   tableCaption.appendChild(tableCaptionText);
-  table.appendChild(tableCaption);
+  tableLists[tableCount - 1].appendChild(tableCaption);
 
   // Generate "Add Entry" row
   const rowAddEntry = document.createElement("tr");
@@ -83,8 +90,8 @@ createJournalBtn.addEventListener("click", function () {
   );
 
   tableHeader.appendChild(rowHeader);
-  table.appendChild(tableHeader);
-  table.appendChild(rowAddEntry);
+  tableLists[tableCount - 1].appendChild(tableHeader);
+  tableLists[tableCount - 1].appendChild(rowAddEntry);
 
-  document.body.insertBefore(table, createJournalBtn);
+  document.body.insertBefore(tableLists[tableCount - 1], createJournalBtn);
 });
