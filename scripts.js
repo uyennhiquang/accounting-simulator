@@ -1,6 +1,8 @@
 "use strict";
 
-// --- BUG: The current functions of generating new entry and journal use the same table ---
+// TODO:
+// Give user the option to add a debit or credit entry
+// Decide on the best input form for data filling and stylization.
 
 const createJournalBtn = document.querySelector(".create-journal");
 
@@ -17,7 +19,7 @@ const journalHeaderText = [
 const tableLists = [];
 let tableCount = 0;
 
-// Function that generates a row taking an array and boolean value as inputs. It will return a row of cell of the given length and can include or not include the name of the elements inside the array.
+// Function that generates a row taking an array and boolean value as inputs. It will return a row of cell of the given length and can include or not include the name of the elements inside the array
 const generateJournalSectionRow = function (array, iteration, textInclude) {
   const row = document.createElement("tr");
   for (let i = 0; i < iteration; i++) {
@@ -36,31 +38,37 @@ const generateJournalSectionRow = function (array, iteration, textInclude) {
   return row;
 };
 
-const createNewEntry = function () {
-  // Generate 1 entry (2 rows) above "Add Entry" row
-  for (let i = 0; i < 2; i++) {
-    const entryRow = generateJournalSectionRow(
-      journalHeaderText,
-      journalHeaderText.length + 1,
-      false
-    );
+// This function takes an integer aka tableIndex and adds the row in the appropriate table. To do so, the function assigns the variable currentActiveTable with the table having the given tableIndex - 1 inside tableLists array.
+const createNewEntry = function (tableIndex) {
+  const currentActiveTable = tableLists[tableIndex - 1];
 
-    table.appendChild(entryRow);
-    table.insertBefore(entryRow, document.getElementById("add-entry-row"));
-  }
+  const entryRow = generateJournalSectionRow(
+    journalHeaderText,
+    journalHeaderText.length + 1,
+    false
+  );
+
+  currentActiveTable.appendChild(entryRow);
+  currentActiveTable.insertBefore(
+    entryRow,
+    document.getElementById(`add-entry-row--${tableIndex}`)
+  );
 };
 
+// This function generates a table and an element in the tableLists array that is a copy of the generated table.
 createJournalBtn.addEventListener("click", function () {
   tableCount++;
   tableLists.push(`table--${tableCount}`);
-  tableLists[tableCount - 1] = document.createElement("table");
+  let thisTable = tableLists[tableCount - 1];
+
+  thisTable = document.createElement("table");
 
   // Generate caption
   const tableCaption = document.createElement("caption");
   const tableCaptionText = document.createTextNode("General Journal");
 
   tableCaption.appendChild(tableCaptionText);
-  tableLists[tableCount - 1].appendChild(tableCaption);
+  thisTable.appendChild(tableCaption);
 
   // Generate "Add Entry" row
   const rowAddEntry = document.createElement("tr");
@@ -68,9 +76,15 @@ createJournalBtn.addEventListener("click", function () {
   // Generate an <a> tag to make text clickable and executable, then create a text node to wrap inside <a> tags
   const clickableAddEntry = document.createElement("a");
   const textAddEntry = document.createTextNode("Add new entry");
+
   clickableAddEntry.href = "#";
-  clickableAddEntry.setAttribute("onclick", "createNewEntry(); return false;");
   clickableAddEntry.setAttribute("id", "add-entry-click");
+  clickableAddEntry.setAttribute("class", `${tableCount}`);
+  clickableAddEntry.setAttribute(
+    "onclick",
+    "createNewEntry(this.className); return false;"
+  );
+
   clickableAddEntry.appendChild(textAddEntry);
 
   const cellAddEntry = document.createElement("td");
@@ -79,7 +93,7 @@ createJournalBtn.addEventListener("click", function () {
   cellAddEntry.setAttribute("colspan", journalHeaderText.length + 1); // length + 1 due to DATE spanning 2 columns
 
   cellAddEntry.setAttribute("id", "add-entry-cell");
-  rowAddEntry.setAttribute("id", "add-entry-row");
+  rowAddEntry.setAttribute("id", `add-entry-row--${tableCount}`);
 
   // Generate header elements and row to insert cells into
   const tableHeader = document.createElement("thead");
@@ -90,8 +104,9 @@ createJournalBtn.addEventListener("click", function () {
   );
 
   tableHeader.appendChild(rowHeader);
-  tableLists[tableCount - 1].appendChild(tableHeader);
-  tableLists[tableCount - 1].appendChild(rowAddEntry);
+  thisTable.appendChild(tableHeader);
+  thisTable.appendChild(rowAddEntry);
 
-  document.body.insertBefore(tableLists[tableCount - 1], createJournalBtn);
+  document.body.insertBefore(thisTable, createJournalBtn);
+  tableLists[tableCount - 1] = thisTable;
 });
